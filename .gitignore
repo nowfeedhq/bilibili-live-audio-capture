@@ -1,0 +1,13 @@
+server/config.json
+recordings/
+*.webm
+*.ogg
+*.m4a
+*.wav
+*.mp3
+*.log
+.env
+.venv/
+__pycache__/
+*.pyc
+node_modules/
