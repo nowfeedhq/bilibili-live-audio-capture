@@ -54,3 +54,12 @@ acceptable. Initialize a new repository, inspect staged files and author/committ
 metadata, then push main to the intended organization repository. Do not push from
 a checkout containing private history. After publication verify README/raw userscript,
 default branch and Actions results. No public commit or PR is part of this package.
+
+## Release CI baseline
+
+CI uses Ubuntu 24.04 with Python 3.11–3.13 and Node 22. During first-release
+verification, the newer ubuntu-latest image with FFmpeg 8.0.1 reported
+`Error parsing Opus packet header` for the generated WebM/Opus test fixture.
+The same test passed locally with FFmpeg 7.1.5. The cause of that FFmpeg 8
+compatibility failure remains unresolved; this release does not claim validation
+on FFmpeg 8. Decoder error checks remain strict, and test failures include stderr.
