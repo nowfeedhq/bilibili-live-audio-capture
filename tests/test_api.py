@@ -75,5 +75,5 @@ class ApiTests(unittest.IsolatedAsyncioTestCase):
                 for n,chunk in enumerate([data[:1000],data[1000:]],1):
                     r=await self.client.post(f'/api/browser-capture/{sid}/chunk/{n}',data=chunk,headers={**self.auth,'X-Capture-Mime':mime}); self.assertEqual(r.status,200)
                 r=await self.client.post(f'/api/browser-capture/{sid}/finish',json={'complete':True,'final_sequence':2},headers=self.auth)
-                m=await r.json(); self.assertEqual(m['status'],'completed'); self.assertEqual(m['media_validity'],'valid')
+                m=await r.json(); self.assertEqual(m['status'],'completed'); self.assertEqual(m['media_validity'],'valid', subprocess.run(['ffmpeg','-v','error','-i',str(self.store.session_dir(sid)/m['capture_file']),'-map','0:a:0','-f','null','-'],capture_output=True,text=True).stderr)
                 self.assertEqual((self.store.session_dir(sid)/m['capture_file']).read_bytes(),data)
